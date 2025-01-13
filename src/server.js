@@ -17,10 +17,17 @@ const server = http.createServer(app);
 
 const wss = new WebSocket.Server({ server });
 
+const sockets = new Set();
 wss.on("connection", (socket) => {
+  sockets.add(socket);
+  socket["nickname"] = "Anonymous";
   socket.on("close", () => console.log("Disconnected from the Browser"));
   socket.on("message", (data) => {
     console.log(`[Rx]: ${data}`);
+
+    sockets.forEach((stored_socket) => {
+      stored_socket.send(`${socket.nickname}: ${data.toString()}`);
+    });
   });
   socket.send("hello!!!");
 });
