@@ -9,10 +9,16 @@ html(lang="en")
         header 
             h1 Debaters
         main 
-            h2 Welcome to Debaters!
-            ul
-            form
-                input(type="text", placeholder="write a msg", required)
-                button Send
+            div#welcome
+                form
+                    input(type="text", placeholder="room name", required)
+                    button Enter Room
+            div#room
+                h3
+                ul
+                form
+                    input(type="text", placeholder="message", required)
+                    button Send
         //- button Call
+        script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")
